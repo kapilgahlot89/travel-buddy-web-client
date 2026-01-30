@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign up</title>
+    <link rel="stylesheet" type="text/css" href="../../css/TravelBuddy.css">
+    <link rel="stylesheet" type="text/css" href="../../css/Login.css">
+    <link rel="icon" type="image/png" href="../../images/page-icons/favicon.jpg">
+    <style>
+        input[type="text]{
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 5px;
+        background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body class="font-family: Arial; color: #333333;">
+<!-- Sign Up Section -->
+<div id="sign_up_section" class="section">
+    <br><br>
+    <h2>Please provide your details here!</h2><hr>
+    <br><br>
+    <form enctype="application/x-www-form-urlencoded">
+        <fieldset>
+            <legend>Sign up form!</legend>
+        <label for="first_name"><strong>First name:</strong></label><br>
+        <input type="text" id="first_name" required autofocus><br><br>
+        <label for="last_name"><strong>Last name:</strong></label><br>
+        <input type="text" id="last_name" required><br><br>
+        <label for="email"><strong>Email:</strong></label><br>
+        <input type="email" id="email" required><br><br>
+        <label for="gender"><strong>Gender:</strong></label>
+        <select id="gender">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+        </select><br><br>
+            <label><strong>Date of birth:</strong></label>
+            <input type="date" name="dob" required><br><br>
+            <label><strong>Mobile:</strong></label>
+            <input type="text" maxlength="10" name="phone"><br><br>
+            <label><strong>Profile picture: </strong></label>
+            <input type="file"><br><br>
+        <label for="username"><strong>Username:</strong></label><br>
+        <input type="text" id="username" required><br><br>
+        <label for="password"><strong>Password:</strong></label><br>
+        <input type="password" id="password" required><br><br>
+        <label for="confirm_password"><strong>Confirm Password:</strong></label><br>
+        <input type="password" id="confirm_password" required><br><br>
+        <label for="reference"><strong>Reference:</strong></label><br>
+        <input type="password" id="reference" required><br><br>
+        <input class="menu-button" type="submit" value="Sign Up" onclick="location.href='login.htm'">
+        </fieldset>
+    </form>
+</div>
+</body>

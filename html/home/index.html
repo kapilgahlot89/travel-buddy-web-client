@@ -1,0 +1,125 @@
+<!-- Done until image, next imageMap -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--
+      `index.html` - "Socialize" landing page.
+      Head section:
+        - Declares UTF-8 charset.
+        - Sets page title.
+        - Links external stylesheet at `resources/TravelBuddy.css`.
+    -->
+    <meta charset="UTF-8">
+    <title>Travel Buddy</title>
+
+    <!-- Link to external CSS file -->
+
+    <link rel="stylesheet" type="text/css" href="../../css/TravelBuddy.css">
+    <link rel="icon" type="image/png" href="../../images/page-icons/favicon.jpg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<!--
+  Page header:
+    - Main heading centered using inline style for demonstration.
+    - A horizontal rule separates the header from the page content.
+-->
+<header>
+<h1 class="headline">Welcome to travel buddy<span><button class="menu-button" id="login" style="float: right; background-color: green" onclick="location.href='../login/login.htm'">Login/Sign up</button></span></h1>
+<hr>
+</header>
+<div class="container">
+<div id="menu_items" class="sidebar">
+<nav>
+    <ul>
+        <li><a class="menu-link" href="../flight/flights.htm"><strong>Flight</strong><span><img class="menu-icon" src="../../images/page-icons/flight.png" alt="flight"></span></a></li>
+        <li><a class="menu-link" href="../train/trains.htm"><strong>Train</strong><span><img class="menu-icon" src="../../images/page-icons/train.png" alt="train"></span></a></li>
+        <li><a class="menu-link" href="../bus/buses.htm"><strong>Bus</strong><span><img class="menu-icon" src="../../images/page-icons/bus.png" alt="bus"></span></a></li>
+    </ul>
+</nav>
+</div>
+<!-- Introductory Text -->
+<!--
+  Short descriptive subheading and paragraph.
+  - Uses semantic emphasis tags (`<em>`, `<strong>`) and abbreviations (`<abbr>`).
+  - Paragraph uses a class (`paragraph`) for styling via CSS.
+-->
+<div class="content">
+    <section>
+<h2 class="intro">This is travel buddy, your one-stop solution for all your travel needs.</h2>
+
+        <div class="slide active">
+            <img src="../../images/home-slideshow/image1.png" onclick="nextSlide()" alt="Image 1" style="850px; height:400px;">
+
+        </div>
+        <div class="slide">
+            <img src="../../images/home-slideshow/image2.jpg" onclick="nextSlide()" alt="Image 2" style="850px; height:400px;">
+        </div>
+        <div class="slide">
+            <img src="../../images/home-slideshow/image3.jpg" onclick="nextSlide()" alt="Image 3" style="850px; height:400px;">
+        </div>
+    </section>
+</div>
+    <div class="right-bar">
+        <h3>Upcoming Offers</h3>
+        <div class="offers">
+            <article class="offer-card">
+                <img src="../../images/offers/flight-summer.jpg" alt="Summer Flight Deal" style="width:100%; height:90px; object-fit:cover;">
+                <h4>Summer Flight Sale</h4>
+                <p class="date">Valid: Jun 1 - Jul 31, 2024</p>
+                <p class="desc">Up to 30% off on domestic and international flights. Limited seats.</p>
+                <p class="price">From ₹3,499</p>
+                <a class="offer-button" href="../flight/flight-deals.htm">Book</a>
+            </article>
+
+            <article class="offer-card">
+                <img src="../../images/offers/train-discount.jpg" alt="Train Discount" style="width:100%; height:90px; object-fit:cover;">
+                <h4>Rail Explorer Pass</h4>
+                <p class="date">Valid: Jul 10 - Aug 20, 2024</p>
+                <p class="desc">Flat 20% off on round-trip AC class bookings across major routes.</p>
+                <p class="price">From ₹999</p>
+                <a class="offer-button" href="../train/train-deals.htm">Book</a>
+            </article>
+
+            <article class="offer-card">
+                <img src="../../images/offers/bus-festival.jpg" alt="Bus Festival Offer" style="width:100%; height:90px; object-fit:cover;">
+                <h4>Festival Bus Pass</h4>
+                <p class="date">Valid: Aug 1 - Sep 30, 2024</p>
+                <p class="desc">Save on intercity bus travel during festival season. Flexible cancellation.</p>
+                <p class="price">From ₹299</p>
+                <a class="offer-button" href="../bus/bus-deals.htm">Book</a>
+            </article>
+
+            <article class="offer-card">
+                <img src="../../images/offers/getaway-package.jpg" alt="Weekend Getaway" style="width:100%; height:90px; object-fit:cover;">
+                <h4>Weekend Getaway Package</h4>
+                <p class="date">Valid: Sep 1 - Nov 30, 2024</p>
+                <p class="desc">2-night packages including transport and hotel at select destinations.</p>
+                <p class="price">From ₹4,999</p>
+                <a class="offer-button" href="../offers/weekend-getaway.htm">Book</a>
+            </article>
+        </div>
+    </div>
+</div>
+
+<script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+
+    function showSlide(n) {
+        slides[currentSlide].classList.remove("active");
+        currentSlide = (n + slides.length) % slides.length;
+        slides[currentSlide].classList.add("active");
+    }
+    function nextSlide() {
+        showSlide(currentSlide + 1);
+    }
+    function prevSlide() {
+        showSlide(currentSlide - 1);
+    }
+
+    showSlide(currentSlide);
+</script>
+<footer class="footer">Copyrights TRAVEL BUDDY (INDIA) PRIVATE LIMITED. All rights reserved.</footer>
+</body>
+</html>

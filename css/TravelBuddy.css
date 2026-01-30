@@ -1,0 +1,169 @@
+img{
+border: 2px solid black;
+}
+
+body{
+background-color:#f2f7f7;
+}
+
+.menu-icon{
+width: 20px;
+height:20px;
+float: right;
+opacity: 0;
+transition: transform 0.2s;
+}
+
+.menu-link{
+text-decoration: none;
+color: blue;
+display: inline-block;
+color: white;
+background-color: black;
+height: 30%;
+width: 85%;
+padding: 10px 20px;
+transition: transform 0.2s;
+border: 1px inset grey;
+border-radius: 5px;
+}
+
+.menu-link:hover{
+transform: scale(1.1);
+}
+
+.menu-link:hover .menu-icon{
+opacity: 1;
+transform: scale(1.1);
+}
+
+
+.headline{
+text-align: center;
+font-family: sans-serif;
+color: red;
+text-shadow: 2px 2px 4px #aaa;
+}
+
+.intro{
+font: 1.5em;
+font-family: sans-serif;
+align-text: center;
+}
+
+.border{
+border: 2px solid Navy;
+padding: 10px;
+border-radius: 5px;
+}
+
+.menu-button{
+background-color: #1E90FF;
+color: white;
+padding: 10px 15px;
+border: none;
+cursor: pointer;
+}
+
+.menu-button:hover{
+transform: scale(1.1);
+}
+
+.sidebar{
+float: left;
+flex-basis: 20%;
+height: 43vw;
+background-color: #f4f4f4;
+padding: 10px;
+font-family:20px;
+overflow: auto;
+}
+
+.right-bar{
+float: right;
+flex-basis: 15%;
+height: 43vw;
+background-color: #f4f4f4;
+padding: 10px;
+font-family:20px;
+overflow: auto;
+}
+
+.sidebar ul{
+list-style-type: none;
+padding: 0;
+display: flex;
+flex-direction: column;
+}
+
+.sidebar ul li{
+border: 1px solid #ccc;
+padding: 8px;
+}
+
+.sidebar ul li:hover{
+background:#D6D6D6;
+cursor:pointer;
+}
+
+.content{
+float: left;
+flex-basis: 65%;
+height: 43vw;
+margin: 10px;
+overflow: auto;
+}
+
+.right-bar {
+  width: 300px;
+  flex: 0 0 300px;
+  box-sizing: border-box;
+  padding: 8px;
+  max-height: calc(100vh - 140px); /* adjust 140px for header + footer height */
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.page-icon {
+float: left;
+width: 60px;
+height: 50px;
+margin-top: 0px;
+margin-left: 20px;
+}
+
+.clearfix::after {
+content: "";
+clear: both;
+display: table;
+}
+.container{
+display: grid;
+grid-template-columns: 20% 65% 15%;
+}
+
+.footer{
+clear: both;
+background-color: grey;
+color: white;
+text-align: center;
+padding: 10px;
+margin-top: 15px;
+border-radius: 5px;
+}
+
+.h1{
+font-size: 2.2vw;
+font-family:arial;
+color:#FF0000;
+}
+.slide{
+display: none;
+text-align: center;
+padding:123px
+}
+.slide.active{
+display: block;
+margin-top: -80px;
+margin-left: -20px;
+}
