@@ -1,27 +1,113 @@
 <!Doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Flights</title>
-    <link rel="stylesheet" type="text/css" href="../../css/TravelBuddy.css">
-    <link rel="icon" type="image/png" href="../../images/page-icons/favicon.jpg">
-</head>
-<body>
-<header>
-    <h1 class="headline"><span><img class="page-icon" src="../../images/page-icons/cricket.png" alt="page icon"></span>Cricket</h1>
-    <hr>
-</header>
-<div class="container">
-    <div id="menu_items" class="sidebar">
-        <nav>
-            <ul>
-                <li><a class="menu-link" href="flights.htm"><strong>Host a match</strong><span><img class="menu-icon" src="../../images/page-icons/cricket.png" alt="cricket"></span></a></li>
-            </ul>
-        </nav>
-    </div>
-    <div class="content">
-    </div>
-    <div class="rightbar">
-    </div>
-</div>
-</body>
+              <html lang="en">
+              <head>
+                  <meta charset="UTF-8">
+                  <title>Flights</title>
+                  <link rel="stylesheet" type="text/css" href="../../css/TravelBuddy.css">
+                  <link rel="icon" type="image/png" href="../../images/page-icons/favicon.jpg">
+              </head>
+              <body>
+              <header>
+                  <h1 class="headline"><span><img class="page-icon" src="../../images/page-icons/flight.png" alt="page icon"></span>Flights</h1>
+                  <hr>
+              </header>
+              <div class="container">
+                  <div id="menu_items" class="sidebar">
+                    <!-- html -->
+                    <nav>
+                        <ul>
+                            <li>
+                                <a class="menu-link" href="flights.htm">
+                                    <strong>Create a flight</strong>
+                                    <span><img class="menu-icon" src="../../images/page-icons/flight.png" alt="flight"></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="menu-link" href="view-flights.htm">
+                                    <strong>View flights</strong>
+                                    <span><img class="menu-icon" src="../../images/page-icons/flight.png" alt="view flights"></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                  </div>
+                  <div class="content">
+                      <!-- html -->
+                      <form id="add-flight-form" action="../../api/flights/add" method="POST" class="flight-form" novalidate>
+                        <div class="form-row">
+                          <label for="origin">Origin</label>
+                          <input id="origin" name="origin" type="text" required placeholder="City or airport code">
+                        </div>
+                        <br><br>
+
+                        <div class="form-row">
+                          <label for="destination">Destination</label>
+                          <input id="destination" name="destination" type="text" required placeholder="City or airport code">
+                        </div>
+                        <br><br>
+
+                        <div class="form-row">
+                          <label for="airline">Airline</label>
+                          <input id="airline" name="airline" type="text" required>
+                        </div>
+                        <br><br>
+
+                        <div class="form-row">
+                          <label for="flightNumber">Flight number</label>
+                          <input id="flightNumber" name="flightNumber" type="text" required pattern="[A-Za-z0-9\-]+" title="Alphanumeric and hyphens only">
+                        </div>
+                        <br><br>
+
+                        <div class="form-row">
+                          <label for="departure">Departure</label>
+                          <input id="departure" name="departure" type="datetime-local" required>
+                        </div>
+                        <br><br>
+
+                        <div class="form-row">
+                          <label for="arrival">Arrival</label>
+                          <input id="arrival" name="arrival" type="datetime-local" required>
+                        </div>
+                        <br><br>
+
+                        <div class="form-row">
+                          <label for="price">Price (USD)</label>
+                          <input id="price" name="price" type="number" min="0" step="0.01" required>
+                        </div>
+                        <br><br>
+
+                        <div class="form-row">
+                          <label for="seats">Seats</label>
+                          <input id="seats" name="seats" type="number" min="1" value="1" required>
+                        </div>
+                        <br><br>
+
+                        <div class="form-row">
+                          <label for="notes">Notes</label>
+                          <textarea id="notes" name="notes" rows="2"></textarea>
+                        </div>
+                        <br><br>
+
+                        <div class="form-actions">
+                          <button type="submit">Add Flight</button>
+                          <button type="reset">Reset</button>
+                        </div>
+                        <br><br>
+                      </form>
+
+                      <script>
+                      document.getElementById('add-flight-form').addEventListener('submit', function(e){
+                        const dep = this.departure.value ? new Date(this.departure.value) : null;
+                        const arr = this.arrival.value ? new Date(this.arrival.value) : null;
+                        if (dep && arr && dep >= arr) {
+                          e.preventDefault();
+                          alert('Arrival must be after departure.');
+                        }
+                      });
+                      </script>
+                  </div> <!-- .content -->
+                  <div class="rightbar">
+                  </div>
+              </div> <!-- .container -->
+              </body>
+              </html>

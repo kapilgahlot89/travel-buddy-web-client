@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>View Flights</title>
+  <link rel="stylesheet" type="text/css" href="../../css/TravelBuddy.css">
+  <link rel="icon" type="image/png" href="../../images/page-icons/favicon.jpg">
+</head>
+<body>
+<header>
+  <h1 class="headline"><span><img class="page-icon" src="../../images/page-icons/flight.png" alt="page icon"></span>Flights</h1>
+  <hr>
+</header>
+<div class="container">
+  <div id="menu_items" class="sidebar">
+    <nav>
+      <ul>
+        <li>
+          <a class="menu-link" href="flights.htm">
+            <strong>Create a flight</strong>
+            <span><img class="menu-icon" src="../../images/page-icons/flight.png" alt="flight"></span>
+          </a>
+        </li>
+        <li>
+          <a class="menu-link" href="view-flights.htm">
+            <strong>View flights</strong>
+            <span><img class="menu-icon" src="../../images/page-icons/flight.png" alt="view flights"></span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="content">
+    <section aria-labelledby="view-flights-heading">
+      <h2 id="view-flights-heading">View Flights</h2>
+
+      <div class="controls" style="margin-bottom:12px;">
+        <button id="refresh-btn" type="button">Refresh</button>
+      </div>
+
+      <div id="status" role="status" aria-live="polite" style="margin-bottom:12px;"></div>
+
+      <div style="overflow:auto;">
+        <table id="flights-table" border="1" cellpadding="6" cellspacing="0" style="width:100%;border-collapse:collapse;">
+          <thead>
+            <tr>
+              <th>Origin</th>
+              <th>Destination</th>
+              <th>Airline</th>
+              <th>Flight #</th>
+              <th>Departure</th>
+              <th>Arrival</th>
+              <th>Price (USD)</th>
+              <th>Seats</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- rows inserted here -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div> <!-- .content -->
+
+  <div class="rightbar"></div>
+</div> <!-- .container -->
+
+<script>
+(function(){
+  const apiUrl = '../../api/flights';
+  const tableBody = document.querySelector('#flights-table tbody');
+  const statusEl = document.getElementById('status');
+  const refreshBtn = document.getElementById('refresh-btn');
+
+  function setStatus(text, isError) {
+    statusEl.textContent = text || '';
+    statusEl.style.color = isError ? 'crimson' : '';
+  }
+
+  function formatDate(value) {
+    if (!value) return '';
+    try {
+      const d = new Date(value);
+      return isNaN(d) ? String(value) : d.toLocaleString();
+    } catch (e) {
+      return String(value);
+    }
+  }
+
+  function formatPrice(v) {
+    const n = Number(v);
+    return isNaN(n) ? '' : n.toFixed(2);
+  }
+
+  function clearTable() {
+    tableBody.innerHTML = '';
+  }
+
+  function renderRow(f) {
+    const tr = document.createElement('tr');
+
+    const addCell = (text) => {
+      const td = document.createElement('td');
+      td.textContent = text != null ? text : '';
+      tr.appendChild(td);
+    };
+
+    addCell(f.origin);
+    addCell(f.destination);
+    addCell(f.airline);
+    addCell(f.flightNumber);
+    addCell(formatDate(f.departure));
+    addCell(formatDate(f.arrival));
+    addCell(formatPrice(f.price));
+    addCell(f.seats);
+    addCell(f.notes);
+
+    return tr;
+  }
+
+  async function loadFlights() {
+    setStatus('Loading flights...');
+    refreshBtn.disabled = true;
+    try {
+      const res = await fetch(apiUrl, { cache: 'no-store' });
+      if (!res.ok) throw new Error('Network response was not ok: ' + res.status);
+      const flights = await res.json();
+      clearTable();
+      if (!Array.isArray(flights) || flights.length === 0) {
+        setStatus('No flights found.');
+        return;
+      }
+      const fragment = document.createDocumentFragment();
+      for (const f of flights) {
+        fragment.appendChild(renderRow(f));
+      }
+      tableBody.appendChild(fragment);
+      setStatus('', false);
+    } catch (err) {
+      clearTable();
+      setStatus('Failed to load flights.', true);
+      console.error(err);
+    } finally {
+      refreshBtn.disabled = false;
+    }
+  }
+
+  refreshBtn.addEventListener('click', loadFlights);
+  document.addEventListener('DOMContentLoaded', loadFlights);
+})();
+</script>
+</body>
+</html>
