@@ -2,26 +2,116 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Restaurants</title>
+    <title>Trains</title>
     <link rel="stylesheet" type="text/css" href="../../css/TravelBuddy.css">
     <link rel="icon" type="image/png" href="../../images/page-icons/favicon.jpg">
+    <style>
+        /* minimal local styles to keep form hidden by default */
+        #create-train-form{ display: none; max-width:600px; }
+        #train-list{ display: none; max-width:600px; margin-top:12px; }
+        .train-item{ padding:8px 0; border-bottom:1px solid #eee; }
+        .empty-message{ color:#666; padding:8px 0; }
+    </style>
 </head>
 <body>
 <header>
-    <h1 class="headline"><span><img class="page-icon" src="../../images/page-icons/restaurant.png" alt="page icon"></span>Restaurant meet ups</h1>
+    <h1 class="headline"><span><img class="page-icon" src="../../images/page-icons/train.png" alt="page icon"></span>Trains</h1>
     <hr>
 </header>
 <div class="container">
     <div id="menu_items" class="sidebar">
         <nav>
             <ul>
-                <li><a class="menu-link" href="cricket.htm"><strong>Host a match</strong><span><img class="menu-icon" src="../../images/cricket.png" alt="cricket"></span></a></li>
+                <!-- changed link to open the form inline instead of navigating away -->
+                <li><a class="menu-link" href="#" onclick="showCreateForm(event)"><strong>Create a train schedule</strong><span><img class="menu-icon" src="../../images/page-icons/train.png" alt="train"></span></a></li>
+                <!-- new menu item to view available trains -->
+                <li><a class="menu-link" href="#" onclick="showTrainList(event)"><strong>View available trains</strong><span><img class="menu-icon" src="../../images/page-icons/train.png" alt="train"></span></a></li>
             </ul>
         </nav>
     </div>
     <div class="content">
+        <!-- create-train-form: initially hidden, two <br> after each line as requested -->
+        <form id="create-train-form" onsubmit="submitTrainForm(event)">
+            <label for="trainName">Train Name:</label><br><br>
+            <input id="trainName" type="text" name="trainName" required><br><br>
+
+            <label for="fromStation">From:</label><br><br>
+            <input id="fromStation" type="text" name="from" required><br><br>
+
+            <label for="toStation">To:</label><br><br>
+            <input id="toStation" type="text" name="to" required><br><br>
+
+            <label for="departureTime">Departure Time:</label><br><br>
+            <input id="departureTime" type="time" name="departure" required><br><br>
+
+            <label for="arrivalTime">Arrival Time:</label><br><br>
+            <input id="arrivalTime" type="time" name="arrival" required><br><br>
+
+            <label for="days">Days:</label><br><br>
+            <input id="days" type="text" name="days" placeholder="e.g., Mon, Wed, Fri"><br><br>
+
+            <label for="price">Price:</label><br><br>
+            <input id="price" type="number" name="price" min="0" step="0.01"><br><br>
+
+            <button type="submit">Create Schedule</button>
+        </form>
+
+        <div id="train-list"></div>
     </div>
     <div class="rightbar">
     </div>
 </div>
+
+<script>
+    function showCreateForm(e){
+        if(e) e.preventDefault();
+        var f = document.getElementById('create-train-form');
+        var list = document.getElementById('train-list');
+        // hide list when showing the form
+        list.style.display = 'none';
+        f.style.display = (f.style.display === 'block') ? 'none' : 'block';
+    }
+
+    function showTrainList(e){
+        if(e) e.preventDefault();
+        var f = document.getElementById('create-train-form');
+        var list = document.getElementById('train-list');
+        // hide form when showing the list
+        f.style.display = 'none';
+        // ensure a message if empty
+        if(!list.hasChildNodes() || (list.childNodes.length === 0)){
+            list.innerHTML = '<div class="empty-message">No trains available.</div>';
+        }
+        list.style.display = 'block';
+    }
+
+    function submitTrainForm(e){
+        e.preventDefault();
+        var form = e.target;
+        var data = new FormData(form);
+        var name = data.get('trainName') || '';
+        var from = data.get('from') || '';
+        var to = data.get('to') || '';
+        var dep = data.get('departure') || '';
+        var arr = data.get('arrival') || '';
+        var days = data.get('days') || '';
+        var price = data.get('price') || '';
+
+        var list = document.getElementById('train-list');
+        // remove 'No trains available.' message if present
+        if(list.firstChild && list.firstChild.className === 'empty-message'){
+            list.innerHTML = '';
+        }
+        var item = document.createElement('div');
+        item.className = 'train-item';
+        item.textContent = name + ' — ' + from + ' → ' + to + ' | Dep: ' + dep + ' Arr: ' + arr + ' | Days: ' + days + ' | Price: ' + price;
+        list.appendChild(item);
+
+        form.reset();
+        form.style.display = 'none';
+        // show the list after creation
+        list.style.display = 'block';
+    }
+</script>
+
 </body>
